@@ -56,7 +56,6 @@ The csv files consist of :
 3. Go to `//localhost:3001` to visualize the html page of the web app.
 
 
-![web app](web-app.png)
 
 *** 
 
