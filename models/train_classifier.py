@@ -26,6 +26,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.multioutput import MultiOutputClassifier
 
 def load_data(database_filepath):
+    """
+    The function loads the database and extracts the messages and categories.
+    INPUT : the database file path
+    OUTPUT : 
+        - the disaster messages as a series object, 
+        - the categories associated with the messages as a dataframe object.
+        - the categories names.
+    """
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql("select * from disaster_messages", engine)
 
@@ -41,7 +49,9 @@ def tokenize(text):
     The function tokenizes and lemmatizes the text in argument, then removes
     any characters not alphanumerical, then converts the tokens into lower characters.
     Afterwards, it removes english stop words.
-    The function finally returns a list of tokens
+    The function finally returns a list of tokens.
+    INPUT : the text to process.
+    OUTPUT : the tokens. 
     """
     
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
@@ -55,6 +65,7 @@ def tokenize(text):
 
 def build_model():
     """
+    The function builds the model with parameters.
     """
     pipeline = Pipeline([
     ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -72,6 +83,12 @@ def build_model():
 
 def evaluate_model(model, X_test, Y_test, category_names):
     """
+    The function evaluates and scores the model.
+    INPUT: 
+            - the model object name
+            - X_test data as series object
+            - Y_test data as a dataframe object
+    OUTPUT : the accuracy metrics
     """
     Y_pred = model.predict(X_test)
     
@@ -85,6 +102,11 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    The function saves the model into a pickle file.
+    INPUT : the model name and the file path of the model.
+    OUTPUT : the pickle file
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 

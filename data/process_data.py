@@ -43,7 +43,8 @@ def clean_data(df):
 def save_data(df, database_filename):
     """
     The function saves the dataframe given in argument into an sqlite database 
-    which filename path is given in argument. 
+    which filename path is given in 2nd argument. 
+    OUTPUT : the table disaster_messages created in the SQLite databse.
     """
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('disaster_messages', engine, if_exists='replace',index=False)  
